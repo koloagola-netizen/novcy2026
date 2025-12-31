@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>З Новим роком 2026!</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: #000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+h1, p {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 2s, transform 2s;
+}
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  animation: glow 2s infinite alternate;
+}
+p { font-size: 1.2em; }
+@keyframes glow { from { text-shadow:0 0 10px #fff;} to { text-shadow:0 0 40px gold;}}
+.firework {
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  animation:explode 1.5s linear forwards;
+}
+@keyframes explode {
+  0% { transform: scale(0); opacity:1; }
+  100% { transform: scale(20); opacity:0; }
+}
+button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: gold;
+  color: #000;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+button:hover { transform: scale(1.1);}
+.snowflake {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0% { transform: translateY(0) translateX(0);}
+  100% { transform: translateY(100vh) translateX(50px);}
+}
+iframe { display: none; }
+</style>
+</head>
+<body>
+
+<button id="startBtn">Запустити свято 🎆</button>
+
+<div id="content" style="display:none;">
+  <h1 id="title">🎉 З Новим роком 2026! 🎉</h1>
+  <p id="message">Нехай цей рік принесе мир, щастя і багато приводів радіти ✨</p>
+  <!-- YouTube плеєр (Last Christmas) -->
+  <iframe id="music" width="0" height="0" 
+  src="https://www.youtube.com/embed/O3Qi3wJwSOM?autoplay=1&loop=1&playlist=O3Qi3wJwSOM" 
+  title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+
+<script>
+const startBtn = document.getElementById('startBtn');
+const content = document.getElementById('content');
+const title = document.getElementById('title');
+const message = document.getElementById('message');
+const music = document.getElementById('music');
+
+startBtn.addEventListener('click', () => {
+  startBtn.style.display = 'none';
+  content.style.display = 'block';
+  
+  // Текст з анімацією
+  title.style.opacity = 1;
+  title.style.transform = "translateY(0)";
+  message.style.opacity = 1;
+  message.style.transform = "translateY(0)";
+  
+  music.style.display = "block";
+
+  // Феєрверки
+  const colors = ["gold","red","blue","green","magenta","cyan","orange"];
+  setInterval(() => {
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    fw.style.left = Math.random() * window.innerWidth + "px";
+    fw.style.top = Math.random() * window.innerHeight + "px";
+    fw.style.background = colors[Math.floor(Math.random()*colors.length)];
+    document.body.appendChild(fw);
+    setTimeout(() => fw.remove(), 1500);
+  }, 200);
+
+  // Сніг
+  setInterval(() => {
+    const snow = document.createElement("div");
+    snow.className = "snowflake";
+    snow.style.left = Math.random() * window.innerWidth + "px";
+    snow.style.animationDuration = (5 + Math.random()*5) + "s";
+    snow.style.opacity = 0.3 + Math.random()*0.7;
+    document.body.appendChild(snow);
+    setTimeout(() => snow.remove(), 10000);
+  }, 300);
+});
+</script>
+
+</body>
+</html>
